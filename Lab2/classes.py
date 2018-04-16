@@ -127,7 +127,6 @@ class PrintExpression(Node):
         self.to_print = to_print
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -137,7 +136,6 @@ class PrintExpressions(Node):
         self.print_expressions = print_expressions
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -147,7 +145,6 @@ class UnExpr(Node):
         self.operator = operator
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -156,7 +153,6 @@ class InstructionBlock(Node):
         self.instructions = instructions
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -167,7 +163,6 @@ class If_Else_If(Node):
         self.condition = condition
 
     def __str__(self):
-        # TODO:
         return self.printTree()
 
 
@@ -180,7 +175,6 @@ class If_Else_if_Else(Node):
         self.else_instructions = else_instructions
 
     def __str__(self):
-        # TODO:
         return self.printTree()
 
 
@@ -191,7 +185,6 @@ class ElIfBlock(Node):
         self.elif_block = elif_block
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -202,7 +195,6 @@ class ForInstruction(Node):
         self.instruction_block = instruction_block
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -213,7 +205,6 @@ class Range(Node):
         self.to_limit = to_limit
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -223,7 +214,6 @@ class MatrixInitializer(Node):
         self.row = row
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -234,7 +224,6 @@ class MatrixReference(Node):
         self.location = location
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -245,7 +234,6 @@ class MatrixLocations(Node):
         self.location = location
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -254,7 +242,6 @@ class ZerosInitFun(Node):
         self.expression = expression
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -263,7 +250,6 @@ class OneswsInitFun(Node):
         self.expression = expression
 
     def __str__(self):
-        # TODO
         return self.printTree()
 
 
@@ -272,5 +258,4 @@ class EyeInitFun(Node):
         self.expression = expression
 
     def __str__(self):
-        # TODO
         return self.printTree()

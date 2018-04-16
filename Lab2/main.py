@@ -11,10 +11,9 @@ if __name__ == '__main__':
     except IOError:
         print("Cannot open {0} file".format(filename))
         sys.exit(0)
-
-    Mparser = Mparser()
+        
     parser = yacc.yacc(module=Mparser)
-    text = file.read()
+
     program = parser.parse(text, lexer=scanner.lexer)
     str = program.printTree()
     print (str)

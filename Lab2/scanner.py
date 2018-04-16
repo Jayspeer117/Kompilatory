@@ -32,10 +32,15 @@ class Scanner:
                  'GEQ',
                  'NOTEQ',
                  'EQUAL',
+                 'ASSIGN',
                  'ADDASSIGN',
                  'SUBASSIGN',
                  'MULASSIGN',
                  'DIVASSIGN',
+
+                 'COMMA',
+                 'SEMICOLON',
+                 'APOSTROPHE',
 
                  'FLOAT',
                  'INT',
@@ -48,12 +53,16 @@ class Scanner:
                  'ID'
              ] + list(reserved.values())
 
+    t_COMMA = r','
+    t_SEMICOLON = ';'
+    t_APOSTROPHE = '\''
+    
     t_DOTADD = r'\.\+'
     t_DOTSUB = r'\.-'
     t_DOTMUL = r'\.\*'
     t_DOTDIV = r'\./'
 
-    t_STRING = r'"[^]*"'
+    t_STRING = r'"[\^]\*"'
 
     # t_PRINT = r'print'
     # t_EYE = r'eye'
@@ -70,10 +79,12 @@ class Scanner:
     t_GEQ = r'>='
     t_NOTEQ = r'!='
     t_EQUAL = r'=='
+
+    t_ASSIGN = r'='
     t_ADDASSIGN = r'\+='
     t_SUBASSIGN = r'-='
     t_MULASSIGN = r'\*='
-    t_DIVASSIGN = r'/='
+    t_DIVASSIGN = r'/='  
 
     def t_ID(t):
         r'[A-Za-z_][A-Za-z0-9_]*'

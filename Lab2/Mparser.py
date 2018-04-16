@@ -10,7 +10,7 @@ from scanner import Scanner
 class Mparser:
 
     def __init__(self) -> None:
-        self.scanner = Scanner()
+        self.scanner = Scanner
         self.errors = False
 
     tokens = Scanner.tokens
@@ -36,7 +36,7 @@ class Mparser:
         p[0] = classes.Instructions(p[1], p[2])
 
     def p_instructions_2(p):
-        """instructions : instruction ';'"""
+        """instructions : instruction SEMICOLON"""
         p[0] = classes.Instructions(None, p[1])
 
     def p_instruction(p):
@@ -47,8 +47,20 @@ class Mparser:
                         | continue_instruction
                         | for_instruction
                         | while_instruction
-                        | choice_instruction"""
+                        | if_instruction"""
         p[0] = p[1]
+
+    def p_assignment_instruction(p):
+        """assignment_instruction : ASSIGN"""
+        p[0] = classes.Assignment()
+
+    def p_print_insctruction(p):
+        """print_instruction : PRINT"""
+        p[0] = classes.PrintInstr()
+
+    def p_while_instruction(p):
+        """while_instruction : WHILE"""
+        p[0] = classes.While()
 
     def p_break_instruction(p):
         """break_instruction : BREAK"""
@@ -67,8 +79,8 @@ class Mparser:
         p[0] = classes.PrintInstr(p[2])
 
     def p_print_expressions(p):
-        '''printexpressions : print_expression
-                            | print_expressions, print_expression'''
+        '''print_expressions : print_expression
+                             | print_expressions print_expression'''
         if len(p) > 2:
             p[0] = classes.PrintExpressions(p[1], p[2])
         else:
@@ -76,11 +88,15 @@ class Mparser:
 
 
     def p_print_expression(p):
-        """print_expression : STRING | expression"""
+        """print_expression : STRING
+                            | expression"""
         p[0] = classes.PrintExpression(p[2])
 
     def p_expression(p):
-        """expression : bin_expression | un_expression | constant | matrix_init_fun"""
+        """expression : bin_expression
+                      | un_expression
+                      | constant
+                      | matrix_init_fun"""
         p[0] = p[1]
 
     def p_matrix_init_fun_zeros(p):
@@ -96,20 +112,20 @@ class Mparser:
         p[0] = classes.EyeInitFun(p[3])
 
     def p_bin_expression(p):
-        """expression : expression '+' expression
-                      | expression '-' expression
-                      | expression '*' expression
-                      | expression '/' expression
-                      | expression < expression
-                      | expression > expression
-                      | expression LEQ expression
-                      | expression GEQ expression
-                      | expression NOTEQ expression
-                      | expression EQUAL expression
-                      | expression DOTADD expression
-                      | expression DOTSUB expression
-                      | expression DOTMUL expression
-                      | expression DOTDIV expression"""
+        """bin_expression : expression '+' expression
+                          | expression '-' expression
+                          | expression '*' expression
+                          | expression '/' expression
+                          | expression '<' expression
+                          | expression '>' expression
+                          | expression LEQ expression
+                          | expression GEQ expression
+                          | expression NOTEQ expression
+                          | expression EQUAL expression
+                          | expression DOTADD expression
+                          | expression DOTSUB expression
+                          | expression DOTMUL expression
+                          | expression DOTDIV expression"""
         p[0] = classes.BinExpr(p[2], p[1], p[3])
 
     def p_constant(p):
@@ -119,7 +135,7 @@ class Mparser:
         p[0] = p[1]
 
     def p_matrix_initialization(p):
-        """matrix_initialization : '[' rows; row ']'
+        """matrix_initialization : '[' rows SEMICOLON row ']'
                                  | '[' row ']'"""
         if len(p) > 4:
             p[0] = classes.MatrixInitializer(p[2], p[3])
@@ -127,7 +143,7 @@ class Mparser:
             p[0] = classes.MatrixInitializer(None, p[2])
 
     def p_un_expression_1(p):
-        """un_expression : expression '\''"""
+        """un_expression : expression APOSTROPHE"""
         p[0] = classes.UnExpr(p[2], p[1])
 
     def p_un_expression_2(p):
@@ -144,14 +160,15 @@ class Mparser:
 
 
     def p_variable(p):
-        """variable : ID | ID '[' matrix_reference ']'"""
+        """variable : ID 
+                    | ID '[' matrix_reference ']'"""
         if len(p) == 2:
             p[0] = classes.Variable(p[1])
         else:
             p[0] = classes.MatrixReference(p[1], p[3])
 
     def p_matrix_reference(p):
-        """matrix_reference : locations, expression
+        """matrix_reference : locations COMMA expression
                             | expression"""
         if len(p) > 2:
             p[0] = classes.MatrixLocations(p[1], p[2])
@@ -159,7 +176,11 @@ class Mparser:
             p[0] = classes.MatrixLocations(None, p[2])
 
     def p_assign_block(p):
-        """assign_block : '=' | '+=' | '-=' | '*=' | '/='"""
+        """assign_block : '=' 
+                        | ADDASSIGN 
+                        | SUBASSIGN
+                        | MULASSIGN
+                        | DIVASSIGN"""
         p[0] = p[1]
 
     def p_while_instr(p):
@@ -175,9 +196,9 @@ class Mparser:
             p[0] = classes.InstructionBlock(p[2])
 
     def p_if_instruction(p):
-        """if_instruction : IF '(' expression ')' instruction_block %proc IFX
+        """if_instruction : IF '(' expression ')' instruction_block %prec IFX
                           | IF '(' expression ')' instruction_block ELSE instruction_block
-                          | IF '(' expression ')' instruction_block elif_block %proc IFX
+                          | IF '(' expression ')' instruction_block elif_block %prec IFX
                           | IF '(' expression ')' instruction_block elif_block ELSE instruction_block"""
 
         if p[6] == 'else':

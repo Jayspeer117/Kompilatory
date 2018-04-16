@@ -1,0 +1,162 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> file
+Rule 1     file -> instructions
+Rule 2     instructions -> instructions instruction
+Rule 3     instructions -> instruction SEMICOLON
+Rule 4     instruction -> assignment_instruction
+Rule 5     instruction -> print_instruction
+Rule 6     instruction -> return_instruction
+Rule 7     instruction -> break_instruction
+Rule 8     instruction -> continue_instruction
+Rule 9     instruction -> for_instruction
+Rule 10    instruction -> while_instruction
+Rule 11    instruction -> if_instruction
+Rule 12    assignment_instruction -> ASSIGN
+Rule 13    print_instruction -> PRINT
+Rule 14    while_instruction -> WHILE
+Rule 15    break_instruction -> BREAK
+Rule 16    continue_instruction -> CONTINUE
+Rule 17    return_instruction -> RETURN expression
+Rule 18    print_instr -> PRINT print_expressions ;
+Rule 19    print_expressions -> print_expression
+Rule 20    print_expressions -> print_expressions print_expression
+Rule 21    print_expression -> STRING
+Rule 22    print_expression -> expression
+Rule 23    expression -> bin_expression
+Rule 24    expression -> un_expression
+Rule 25    expression -> constant
+Rule 26    expression -> matrix_init_fun
+Rule 27    matrix_init_fun -> ZEROS ( expression )
+Rule 28    matrix_init_fun -> ONES ( expression )
+Rule 29    matrix_init_fun -> EYE ( expression )
+Rule 30    bin_expression -> expression + expression
+Rule 31    bin_expression -> expression - expression
+Rule 32    bin_expression -> expression * expression
+Rule 33    bin_expression -> expression / expression
+Rule 34    bin_expression -> expression < expression
+Rule 35    bin_expression -> expression > expression
+Rule 36    bin_expression -> expression LEQ expression
+Rule 37    bin_expression -> expression GEQ expression
+Rule 38    bin_expression -> expression NOTEQ expression
+Rule 39    bin_expression -> expression EQUAL expression
+Rule 40    bin_expression -> expression DOTADD expression
+Rule 41    bin_expression -> expression DOTSUB expression
+Rule 42    bin_expression -> expression DOTMUL expression
+Rule 43    bin_expression -> expression DOTDIV expression
+Rule 44    constant -> FLOAT
+Rule 45    constant -> INT
+Rule 46    constant -> matrix_initialization
+Rule 47    matrix_initialization -> [ rows SEMICOLON row ]
+Rule 48    matrix_initialization -> [ row ]
+Rule 49    un_expression -> expression APOSTROPHE
+Rule 50    un_expression -> - expression
+Rule 51    assign_instr -> variable assign_block expression
+Rule 52    assign_instr -> variable assign_block assign_instr
+Rule 53    variable -> ID
+Rule 54    variable -> ID [ matrix_reference ]
+Rule 55    matrix_reference -> locations COMMA expression
+Rule 56    matrix_reference -> expression
+Rule 57    assign_block -> =
+Rule 58    assign_block -> ADDASSIGN
+Rule 59    assign_block -> SUBASSIGN
+Rule 60    assign_block -> MULASSIGN
+Rule 61    assign_block -> DIVASSIGN
+Rule 62    while_instr -> WHILE ( expression ) instruction_block
+Rule 63    instruction_block -> instruction ;
+Rule 64    instruction_block -> { instructions }
+Rule 65    if_instruction -> IF ( expression ) instruction_block
+Rule 66    if_instruction -> IF ( expression ) instruction_block ELSE instruction_block
+Rule 67    if_instruction -> IF ( expression ) instruction_block elif_block
+Rule 68    if_instruction -> IF ( expression ) instruction_block elif_block ELSE instruction_block
+Rule 69    elif_block -> ELSE IF ( expression ) instruction_block
+Rule 70    elif_block -> ELSE IF ( expression ) instruction_block elif_block
+Rule 71    for_instruction -> FOR range instruction_block
+Rule 72    range -> ID = expression : expression
+
+Terminals, with rules where they appear
+
+(                    : 27 28 29 62 65 66 67 68 69 70
+)                    : 27 28 29 62 65 66 67 68 69 70
+*                    : 32
++                    : 30
+-                    : 31 50
+/                    : 33
+:                    : 72
+;                    : 18 63
+<                    : 34
+=                    : 57 72
+>                    : 35
+ADDASSIGN            : 58
+APOSTROPHE           : 49
+ASSIGN               : 12
+BREAK                : 15
+COMMA                : 55
+CONTINUE             : 16
+DIVASSIGN            : 61
+DOTADD               : 40
+DOTDIV               : 43
+DOTMUL               : 42
+DOTSUB               : 41
+ELSE                 : 66 68 69 70
+EQUAL                : 39
+EYE                  : 29
+FLOAT                : 44
+FOR                  : 71
+GEQ                  : 37
+ID                   : 53 54 72
+IF                   : 65 66 67 68 69 70
+INT                  : 45
+LEQ                  : 36
+MULASSIGN            : 60
+NOTEQ                : 38
+ONES                 : 28
+PRINT                : 13 18
+RETURN               : 17
+SEMICOLON            : 3 47
+STRING               : 21
+SUBASSIGN            : 59
+WHILE                : 14 62
+ZEROS                : 27
+[                    : 47 48 54
+]                    : 47 48 54
+error                : 
+{                    : 64
+}                    : 64
+
+Nonterminals, with rules where they appear
+
+assign_block         : 51 52
+assign_instr         : 52
+assignment_instruction : 4
+bin_expression       : 23
+break_instruction    : 7
+constant             : 25
+continue_instruction : 8
+elif_block           : 67 68 70
+expression           : 17 22 27 28 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 42 43 43 49 50 51 55 56 62 65 66 67 68 69 70 72 72
+file                 : 0
+for_instruction      : 9
+if_instruction       : 11
+instruction          : 2 3 63
+instruction_block    : 62 65 66 66 67 68 68 69 70 71
+instructions         : 1 2 64
+locations            : 55
+matrix_init_fun      : 26
+matrix_initialization : 46
+matrix_reference     : 54
+print_expression     : 19 20
+print_expressions    : 18 20
+print_instr          : 
+print_instruction    : 5
+range                : 71
+return_instruction   : 6
+row                  : 47 48
+rows                 : 47
+un_expression        : 24
+variable             : 51 52
+while_instr          : 
+while_instruction    : 10
+
